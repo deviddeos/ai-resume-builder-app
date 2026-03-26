@@ -5,10 +5,11 @@ import ResumePreview from '../components/ResumePreview'
 import Loader from '../components/Loader'
 import { ArrowLeftIcon } from 'lucide-react'
 
+
 const Preview = () => {
 
   const { resumeId } = useParams()
-  const {isLoading, setIsLoading} = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [resumeData, setResumeData] = useState(null)
 
   const loadResume = async () => {
