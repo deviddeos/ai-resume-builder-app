@@ -124,6 +124,8 @@ const Dashboard = () => {
 
                 <p className='absolute bottom-1 text-[11px] text-slate-400 group-hover:text-slate-500 transition-all duration-300 px-2 text-center' style={{ color: baseColor + '90' }}>
                   Updated on {new Date(resume.updatedAt).toLocaleDateString()}
+                  {/* Updated on {new Date(resume.updatedAt).toLocaleDateString()} at{" "} */}
+                  {/* {currentTime.toLocaleTimeString()} */}
                 </p>
 
                 <div onClick={e => e.stopPropagation()} className='absolute top-1 right-1 group-hover:flex items-center hidden'>

@@ -10,6 +10,9 @@ import api from './configs/api'
 import { login, setLoading } from './app/features/authSlice'
 import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
+import CallToAction from './components/home/CallToAction'
+import Features from './components/home/Features'
+import Testimonial from './components/home/Testimonial'
 
 const App = () => {
 
