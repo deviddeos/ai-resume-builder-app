@@ -6,7 +6,7 @@ import fs from 'fs'
 
 // controller for creating new resume
 // POST: /api/resumes/create
-export const createResume = async (req, res) =>{
+export const createResume = async (req, res) =>{    
     try {
         const userId = req.userId;
         const {title} = req.body;
@@ -24,18 +24,18 @@ export const createResume = async (req, res) =>{
 
 // controller for deleting a resume
 // DELETE: /api/resumes/delete
-export const deleteResume = async (req, res) =>{
+export const deleteResume = async (req, res) => {
     try {
         const userId = req.userId;
-        const {resumeId} = req.params;
-
-        await Resume.findOneAndDelete({userId, _id: resumeId})
-
-        // return success message
-        return res.status(200).json({message: 'Resume deleted successfully', resume: newResume})
+        const { resumeId } = req.params; // ✅ matches route :resumeId
+        const resume = await Resume.findOneAndDelete({ userId, _id: resumeId })
+        if (!resume) {
+            return res.status(404).json({ message: 'Resume not found' })
+        }
+        return res.status(200).json({ message: 'Resume deleted successfully' }) // ✅ removed undefined `newResume`
 
     } catch (error) {
-        return res.status(400).json({message: error.message})
+        return res.status(400).json({ message: error.message })
     }
 }
 
@@ -91,8 +91,13 @@ export const updateResume = async(req, res)=>{
         const {resumeId, resumeData, removeBackground} = req.body
         const image = req.file;
 
-        let resumeDataCopy = JSON.parse(resumeData);
-
+        let resumeDataCopy; 
+        if(typeof resumeData === 'string'){
+            resumeDataCopy = await JSON.parse(resumeData);
+        } else {
+            resumeDataCopy = structuredClone(resumeData)
+        }
+        
         if(image){
             const imageBufferData = fs.createReadStream(image.path)
             const response = await imagekit.files.upload({

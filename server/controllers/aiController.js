@@ -71,7 +71,6 @@ export const enhanceJobDescription = async (req, res) => {
 // POST: /api/ai/upload-resume
 export const uploadResume = async (req, res) => {
     try {
-
         const { resumeText, title } = req.body
         const userId = req.userId;
 
@@ -83,7 +82,7 @@ export const uploadResume = async (req, res) => {
 
         const userPrompt = `extract data from this resume: ${resumeText}
         
-        Provide data int the following JSON format with no additional text before or after:
+        Provide data in the following JSON format with no additional text before or after:
 
         {
              professional_summary: { type: String, default: ''},

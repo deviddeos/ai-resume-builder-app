@@ -17,7 +17,7 @@ app.use(cors())
 
 app.get('/', (req, res)=> res.send("Server is Live..."))
 app.use('/api/users', userRouter)
-app.use('api/resumes', resumeRouter)
+app.use('/api/resumes', resumeRouter)
 app.use('/api/ai', aiRouter)
 
 app.listen(PORT, ()=>{

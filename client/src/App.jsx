@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import api from './configs/api'
 import { login, setLoading } from './app/features/authSlice'
 import { useEffect } from 'react'
-import { Toaster} from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
 
@@ -19,21 +19,19 @@ const App = () => {
     const token = localStorage.getItem('token')
     try {
       if (token) {
-        const {data } = await api.get('/api/user/data', {headers: {Authorization: token}})
-        if(data.user){
-          dispatch(login({token, user:data.user}))
+        const { data } = await api.get('/api/users/data')
+        if (data.user) {
+          dispatch(login({ token, user: data.user }))
         }
-        dispatch(setLoading(false))
-      } else {
-        dispatch(setLoading(false))
       }
     } catch (error) {
-      dispatch(setLoading(false))
       console.log(error.message)
+    } finally {
+      dispatch(setLoading(false)) //always runs, no duplication
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getUserData()
   }, [])
 
@@ -41,14 +39,14 @@ const App = () => {
     <>
       <Toaster />
       <Routes>
-        <Route path='/' element={<Home/>} /> 
+        <Route path='/' element={<Home />} />
 
         <Route path='app' element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path='builder/:resumeId' element={<ResumeBuilder />} />
         </Route>
 
-        <Route path='view/:resumeId' element={<Preview/>} /> 
+        <Route path='view/:resumeId' element={<Preview />} />
 
       </Routes>
     </>
