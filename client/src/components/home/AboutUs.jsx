@@ -16,7 +16,7 @@ function AboutUs() {
 
                 <div className="mt-5 flex items-center gap-2 text-sm text-green-600 bg-green-400/10 rounded-full px-4 py-1.5">
                     <BookUserIcon className='size-4.5 stroke-green-600' />
-                    <span>Testinomials</span>
+                    <span>About Us</span>
                 </div>
 
                     <Title
