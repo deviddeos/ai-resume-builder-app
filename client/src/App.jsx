@@ -28,6 +28,10 @@ const App = () => {
         }
       }
     } catch (error) {
+      if (error?.response?.status === 401) {
+        localStorage.removeItem('token')
+        dispatch(login({ token: null, user: null }))
+      }
       console.log(error.message)
     } finally {
       dispatch(setLoading(false)) //always runs, no duplication

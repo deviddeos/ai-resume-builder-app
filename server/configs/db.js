@@ -2,8 +2,13 @@ import mongoose from "mongoose";
 
 const connectDB = async () =>{
     try {
-        mongoose.connection.on("connected", ()=>{console.log("Database connected successfully");
-        })
+        mongoose.connection.on("connected", () => {
+            console.log("Database connected successfully");
+        });
+
+        mongoose.connection.on("error", (error) => {
+            console.error("MongoDB connection error:", error);
+        });
 
         let mongodbURI = process.env.MONGODB_URI;
         const projectName = 'resume-builder';
@@ -16,10 +21,12 @@ const connectDB = async () =>{
             mongodbURI = mongodbURI.slice(0, -1);
         }
 
-        await mongoose.connect(`${mongodbURI}/${projectName}`)
+        await mongoose.connect(`${mongodbURI}/${projectName}`, {
+            serverSelectionTimeoutMS: 5000,
+        })
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
-        
+        throw error;
     }
 }
 
