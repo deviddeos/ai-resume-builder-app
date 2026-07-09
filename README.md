@@ -84,7 +84,7 @@ resume-builder/
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/deviddeos/ai-resume-builder-app.git
 cd resume-builder
 ```
 
